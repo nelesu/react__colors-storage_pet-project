@@ -1,5 +1,3 @@
-
-
 export default color => {
   let r, g, b, hsp;
 
@@ -10,7 +8,7 @@ export default color => {
 
 
   r = color >> 16;
-  g = color >> 8 & 255;
+  g = (color >> 8) & 255;
   b = color & 255;
 
 

@@ -5,7 +5,7 @@ import {
   Route,
 } from "react-router-dom";
 // components
-import Item from './components/Item';
+import Item from './components/item.component';
 import AddColor from './components/add-color.component';
 
 // utils
@@ -17,6 +17,7 @@ function App() {
     if (isCorrectColorName(color)) {
       setColors([...colors, `#${color}`]);
     } else {
+      
     }
   };
 
