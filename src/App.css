@@ -8,7 +8,6 @@
 }
 
 
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -22,4 +21,9 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.container {
+  display: grid;
+  /* grid-template-rows: 33.3333% ; */
 }

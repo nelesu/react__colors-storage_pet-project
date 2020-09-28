@@ -20,6 +20,7 @@ const Li = styled.li`
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
+      border: solid 2px ${({ theme }) => theme.bgColor};
 `;
 
 const Button = styled.button`

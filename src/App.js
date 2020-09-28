@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 // components
 import Item from './components/item.component';
-import AddColor from './components/add-color.component';
+import AddColor from './components/AddColor/add-color.component';
 
 // utils
 import isCorrectColorName from './utils/isCorrectColorName';
@@ -17,7 +17,7 @@ function App() {
     if (isCorrectColorName(color)) {
       setColors([...colors, `#${color}`]);
     } else {
-      
+
     }
   };
 
@@ -28,12 +28,14 @@ function App() {
       colorsCopy.splice(index, 1);
       setColors(colorsCopy);
     }
-
   }
+
   return (
     <Router>
       <div className="container">
-        <Route path="/add/:id" component={AddColor} onAddColor={handleAddColor} />
+        <Route path="/add/:id" render={(props) => (
+          <AddColor {...props} onAddColor={handleAddColor} />
+        )} />
         <Item userId="000000" colors={colors} onRemoveColor={handleRemoveColor} />
       </div>
     </Router>
