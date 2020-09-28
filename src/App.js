@@ -5,11 +5,11 @@ import {
   Route,
 } from "react-router-dom";
 // components
-import Item from './components/item.component';
+import Board from './components/Board/board.component';
 import AddColor from './components/AddColor/add-color.component';
 
 // utils
-import isCorrectColorName from './utils/isCorrectColorName';
+import isCorrectColorName from './utils/isCorrectHexColorName';
 
 function App() {
   const [colors, setColors] = useState(["#00010a", "#0d1016", "#15547e", "#00010a", "#0d1016", "#15547e", "#00010a", "#0d1016", "#15547e", "#00010a", "#0d1016", "#15547e"]);
@@ -17,7 +17,7 @@ function App() {
     if (isCorrectColorName(color)) {
       setColors([...colors, `#${color}`]);
     } else {
-
+      console.log(`Color "${color}" is incorrect`);
     }
   };
 
@@ -36,7 +36,7 @@ function App() {
         <Route path="/add/:id" render={(props) => (
           <AddColor {...props} onAddColor={handleAddColor} />
         )} />
-        <Item userId="000000" colors={colors} onRemoveColor={handleRemoveColor} />
+        <Board userId="000000" colors={colors} onRemoveColor={handleRemoveColor} />
       </div>
     </Router>
   );

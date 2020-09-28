@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { ThemeProvider } from "styled-components";
-import findContrastColor from '../utils/findContrastColor';
+import findContrastColor from '../../../utils/findContrastColor';
 
 const Ul = styled.ul`
   display: flex;
@@ -20,7 +20,7 @@ const Li = styled.li`
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      border: solid 2px ${({ theme }) => theme.bgColor};
+      border: solid 2px ${({ theme }) => theme.color};
 `;
 
 const Button = styled.button`
