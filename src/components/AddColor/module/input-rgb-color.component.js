@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from "styled-components";
 
 
 const Form = styled.form`
   display: grid;
   grid-template-columns: 100px 100px 100px;
+  position: relative;
+  padding-left: 40px;
 `;
 
 const Input = styled.input`
@@ -19,17 +21,23 @@ const Input = styled.input`
   }
 `;
 
+const RgbLabel = styled.span`
+  position: absolute;
+  top: 6px;
+`;
 
 const toCorrectNumberValue = (value) => {
-  if (`${value}`.length > 3) {
-    console.log("Only three characters");
-    value = +value;// convert to number
-    return 0;
+  if (value.length > 3) {
+    console.log("There should be only three characters");
+    return value.slice(0, 3);
   } else if (value <= 255 && value >= 0) {
     return value;
-  } else {
-    console.log('Incorrect value');
+  } else if (value < 0) {
+    console.log('Must be greater than 0 or equal to 0');
     return 0;
+  } else if (value > 255) {
+    console.log('Must be less than 255');
+    return 255;
   }
 }
 
@@ -63,6 +71,7 @@ const InputRGBColor = ({ colorEntry, updateEntry, handlePressEnter }) => {
 
   return (
     <Form onChange={PreparationForUpdateEntry} onKeyUp={handlePressEnter}>
+      <RgbLabel>rgb</RgbLabel>
       <Input type="number" name='first' value={colorEntry[0]} />
       <Input type="number" name='second' value={colorEntry[1]} />
       <Input type="number" name='third' value={colorEntry[2]} />

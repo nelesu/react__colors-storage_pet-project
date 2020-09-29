@@ -27,7 +27,6 @@ const AddColor = ({ onAddColor }) => {
   const [colorInputType, setColorInputType] = useState('hex');
 
   const updateEntry = ({ type, color }) => {
-    console.log(type, color, 'updateEntry, type');
     if (type === "hex") {
       setColorEntry(prevState => {
         let newColorEntry = { ...prevState };
@@ -47,14 +46,20 @@ const AddColor = ({ onAddColor }) => {
 
   const addingColor = () => {
     if (colorInputType === 'rgb') {
+      onAddColor(partOfrgbToHex(...colorEntry.rgb));
+      // adding color to the board from current rgb
       setColorEntry(prevState => {
         let newColorEntry = { ...prevState };
         newColorEntry.hex = partOfrgbToHex(...newColorEntry.rgb);
         return newColorEntry;
       });
-    };
+      // change color entry
+    }
+    if (colorInputType === 'hex') {
+      onAddColor(colorEntry.hex);
+    }
     console.log(colorEntry.hex, 'addingColor');
-    onAddColor(colorEntry.hex);
+
     setColorEntry(prevState => {
       let newColorEntry = { ...prevState };
       // newColorEntry.hex = "";
