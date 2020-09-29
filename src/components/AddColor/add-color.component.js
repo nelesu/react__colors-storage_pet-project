@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import InputHexColor from "./module/input-hex-color.component";
 import ImportRGBColor from "./module/input-rgb-color.component";
 import ImportRGBAColor from "./module/input-rgba-color.component";
-
+// Utils
+import isCorrectColorName from './../../utils/isCorrectColorName';
 
 import styled from "styled-components";
 
@@ -30,7 +31,6 @@ const AddColor = ({ onAddColor }) => {
         newColorEntry.hex = color;
         return newColorEntry;
       });
-
     };
     if (type === "rgb") {
       setColorEntry(prevState => {
@@ -49,20 +49,21 @@ const AddColor = ({ onAddColor }) => {
   };
 
   const addingColor = () => {
-    if (colorInputType === 'rgb') {
+    // check array of color's name is correct
+    if (colorInputType === 'rgb' && isCorrectColorName({ color: colorEntry.rgb, type: colorInputType })) {
       console.log(colorEntry.rgb, 'adding rgb color');
       onAddColor(`rgb(${colorEntry.rgb[0]}, ${colorEntry.rgb[1]}, ${colorEntry.rgb[2]})`);
       // adding color to the board from the current rgb
-    };
-    if (colorInputType === 'rgba') {
+    } else if (colorInputType === 'rgba' && isCorrectColorName({ color: colorEntry.rgba, type: colorInputType })) {
       console.log(colorEntry.rgb, 'adding rgba color');
       onAddColor(`rgba(${colorEntry.rgba[0]}, ${colorEntry.rgba[1]}, ${colorEntry.rgba[2]}, ${colorEntry.rgba[3]})`);
       // adding color to the board from the current rgba
-    };
-    if (colorInputType === 'hex') {
+    } else if (colorInputType === 'hex' && isCorrectColorName({ color: colorEntry.hex, type: colorInputType })) {
       console.log(colorEntry.hex, 'adding hex color');
       onAddColor('#' + colorEntry.hex);
-    };
+    } else {
+      console.log("Not a correct color name");
+    }
 
     setColorEntry(({ ...prevState }) => {
       let newColorEntry = prevState;

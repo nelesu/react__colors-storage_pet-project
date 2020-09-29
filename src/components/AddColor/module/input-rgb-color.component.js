@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from "styled-components";
 
+// Utils
+import toCorrectPartOfColor from './../../../utils/toCorrectPartOfColor';
 
 const Form = styled.form`
   display: grid;
@@ -20,20 +22,6 @@ const Input = styled.input`
   }
 `;
 
-const toCorrectNumberValue = (value) => {
-  if (value.length > 3) {
-    console.log("There should be only three characters");
-    return value.slice(0, 3);
-  } else if (value <= 255 && value >= 0) {
-    return value;
-  } else if (value < 0) {
-    console.log('Must be greater than 0 or equal to 0');
-    return 0;
-  } else if (value > 255) {
-    console.log('Must be less than 255');
-    return 255;
-  }
-}
 
 
 const InputRGBColor = ({ colorEntry, updateEntry, handlePressEnter }) => {
@@ -47,17 +35,17 @@ const InputRGBColor = ({ colorEntry, updateEntry, handlePressEnter }) => {
 
     if (name === "red") {
       let currentRGBColor = colorEntry;
-      currentRGBColor[0] = toCorrectNumberValue(value);
+      currentRGBColor[0] = toCorrectPartOfColor(value);
       updateEntry({ type: "rgb", color: currentRGBColor });
     }
     if (name === "green") {
       let currentRGBColor = colorEntry;
-      currentRGBColor[1] = toCorrectNumberValue(value);
+      currentRGBColor[1] = toCorrectPartOfColor(value);
       updateEntry({ type: "rgb", color: currentRGBColor });
     }
     if (name === "blue") {
       let currentRGBColor = colorEntry;
-      currentRGBColor[2] = toCorrectNumberValue(value);
+      currentRGBColor[2] = toCorrectPartOfColor(value);
       updateEntry({ type: "rgb", color: currentRGBColor });
     }
 

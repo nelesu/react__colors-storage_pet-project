@@ -9,7 +9,7 @@ import Board from './components/Board/board.component';
 import AddColor from './components/AddColor/add-color.component';
 
 // utils
-import isCorrectColorName from './utils/isCorrectHexColorName';
+import isCorrectColorName from './utils/isCorrectColorName';
 
 function App() {
   const [colors, setColors] = useState(["#00010a", "#0d1016", "#15547e", "#00010a", "#0d1016", "#15547e", "#00010a", "#0d1016", "#15547e", "#00010a", "#0d1016", "#15547e"]);

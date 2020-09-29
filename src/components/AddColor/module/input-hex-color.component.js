@@ -20,6 +20,10 @@ const NumberSign = styled.div`
   top: 8px;
 `;
 
+const toCorrectHexNumber = (colorNumber) => {
+  return colorNumber
+}
+
 const InputHexColor = ({ colorEntry, updateEntry, handlePressEnter }) => {
   const handleChange = (e) => {
     let color = e.target.value;

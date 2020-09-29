@@ -14,13 +14,13 @@ const Li = styled.li`
       list-style: none;
       color: ${({ theme }) => theme.color};
       height: 100px;
-      width: 300px;
+      width: 250px;
       background-color: ${({ theme }) => theme.bgColor};
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      border: solid 2px ${({ theme }) => theme.color};
+      border: solid 2px #C0C0C0;
 `;
 
 const Button = styled.button`
