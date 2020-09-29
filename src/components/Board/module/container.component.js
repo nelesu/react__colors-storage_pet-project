@@ -13,8 +13,8 @@ const Ul = styled.ul`
 const Li = styled.li`
       list-style: none;
       color: ${({ theme }) => theme.color};
-      height: 150px;
-      width: 150px;
+      height: 100px;
+      width: 300px;
       background-color: ${({ theme }) => theme.bgColor};
       display: flex;
       flex-direction: column;
@@ -37,6 +37,9 @@ const Button = styled.button`
   }
 `;
 
+const P = styled.p`
+  font-size: 0.8em;
+`;
 
 
 const Container = ({ colors, onRemoveColor }) => {
@@ -55,7 +58,7 @@ const Container = ({ colors, onRemoveColor }) => {
         return (
           <ThemeProvider theme={theme}>
             <Li key={index}>
-              <p>{color}</p>
+              <P>{color}</P>
               <Button onClick={handleRemoveClick} name={color}>Delete The Color</Button>
             </Li>
           </ThemeProvider>)

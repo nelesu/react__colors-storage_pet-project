@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const Form = styled.form`
   display: grid;
-  grid-template-columns: 100px 100px 100px;
+  grid-template-columns: 100px 100px 100px 100px;
   position: relative;
 `;
 
@@ -15,7 +15,7 @@ const Input = styled.input`
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
+        -webkit-appearance: none;
     margin: 0;
   }
 `;
@@ -33,10 +33,20 @@ const toCorrectNumberValue = (value) => {
     console.log('Must be less than 255');
     return 255;
   }
-}
+};
+const toCorrectAlphaValue = (value) => {
+  let deletedZero = value.replace(/0{0,}$/, '');
+  if (deletedZero.length > 6) {
+    return deletedZero.slice(0, 6);
+  } else if (deletedZero <= 1 && deletedZero >= 0) {
+    return deletedZero;
+  } else {
+    console.log("Alpha is incorrect");
+    return 0;
+  }
+};
 
-
-const InputRGBColor = ({ colorEntry, updateEntry, handlePressEnter }) => {
+const InputRGBAColor = ({ colorEntry, updateEntry, handlePressEnter }) => {
 
   const PreparationForUpdateEntry = (e) => {
     e.preventDefault();
@@ -48,17 +58,22 @@ const InputRGBColor = ({ colorEntry, updateEntry, handlePressEnter }) => {
     if (name === "red") {
       let currentRGBColor = colorEntry;
       currentRGBColor[0] = toCorrectNumberValue(value);
-      updateEntry({ type: "rgb", color: currentRGBColor });
+      updateEntry({ type: "rgba", color: currentRGBColor });
     }
     if (name === "green") {
       let currentRGBColor = colorEntry;
       currentRGBColor[1] = toCorrectNumberValue(value);
-      updateEntry({ type: "rgb", color: currentRGBColor });
+      updateEntry({ type: "rgba", color: currentRGBColor });
     }
     if (name === "blue") {
       let currentRGBColor = colorEntry;
       currentRGBColor[2] = toCorrectNumberValue(value);
-      updateEntry({ type: "rgb", color: currentRGBColor });
+      updateEntry({ type: "rgba", color: currentRGBColor });
+    }
+    if (name === "alpha") {
+      let currentRGBColor = colorEntry;
+      currentRGBColor[3] = toCorrectAlphaValue(value);
+      updateEntry({ type: "rgba", color: currentRGBColor });
     }
 
   }
@@ -68,8 +83,9 @@ const InputRGBColor = ({ colorEntry, updateEntry, handlePressEnter }) => {
       <Input type="number" placeholder="red" name='red' value={colorEntry[0]} />
       <Input type="number" placeholder="green" name='green' value={colorEntry[1]} />
       <Input type="number" placeholder="blue" name='blue' value={colorEntry[2]} />
+      <Input type="number" placeholder="alpha" name='alpha' value={colorEntry[3]} />
     </Form>
   );
 }
 
-export default InputRGBColor;
+export default InputRGBAColor;

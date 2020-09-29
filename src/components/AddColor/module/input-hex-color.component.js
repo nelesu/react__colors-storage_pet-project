@@ -15,13 +15,12 @@ const Div = styled.div`
 `;
 
 const NumberSign = styled.div`
-  left: 15px;
-/* 15 +  40px */
+  left: 10px;
   position: absolute;
-  top: 8.5px;
+  top: 8px;
 `;
 
-const InputHexColor = ({ colorEntry, updateEntry, handlePressEnter, handleAddColor }) => {
+const InputHexColor = ({ colorEntry, updateEntry, handlePressEnter }) => {
   const handleChange = (e) => {
     let color = e.target.value;
     updateEntry({ type: "hex", color: color });
@@ -29,7 +28,7 @@ const InputHexColor = ({ colorEntry, updateEntry, handlePressEnter, handleAddCol
 
   return (
     <Div>
-      <Input type="text" onKeyUp={handlePressEnter} inputColor="rebeccapurple" value={colorEntry} onChange={handleChange}>
+      <Input placeholder="hex" type="text" onKeyUp={handlePressEnter} inputColor="rebeccapurple" value={colorEntry} onChange={handleChange}>
       </Input>
       <NumberSign>#</NumberSign>
     </Div>

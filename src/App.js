@@ -14,11 +14,11 @@ import isCorrectColorName from './utils/isCorrectHexColorName';
 function App() {
   const [colors, setColors] = useState(["#00010a", "#0d1016", "#15547e", "#00010a", "#0d1016", "#15547e", "#00010a", "#0d1016", "#15547e", "#00010a", "#0d1016", "#15547e"]);
   const handleAddColor = (color) => {
-    if (isCorrectColorName(color)) {
-      setColors([...colors, `#${color}`]);
-    } else {
+    // if (isCorrectColorName(color)) {
+    setColors([...colors, `${color}`]);
+    // } else {
       console.log(`Color "${color}" is incorrect`);
-    }
+    // }
   };
 
   const handleRemoveColor = color => {
