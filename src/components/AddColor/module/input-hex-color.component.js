@@ -21,7 +21,7 @@ const NumberSign = styled.div`
 `;
 
 const toCorrectHexNumber = (colorNumber) => {
-  return colorNumber
+  return colorNumber;
 }
 
 const InputHexColor = ({ colorEntry, updateEntry, handlePressEnter }) => {

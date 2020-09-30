@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { ThemeProvider } from "styled-components";
-import findContrastColor from '../../../utils/findContrastColor';
+import blackOrWhite from '../../../utils/blackOrWhite';
 
 const Ul = styled.ul`
   display: flex;
@@ -11,16 +11,16 @@ const Ul = styled.ul`
   `;
 
 const Li = styled.li`
-      list-style: none;
-      color: ${({ theme }) => theme.color};
-      height: 100px;
-      width: 250px;
-      background-color: ${({ theme }) => theme.bgColor};
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      border: solid 2px #C0C0C0;
+    list-style: none;
+    color: ${({ theme }) => theme.color};
+    height: 100px;
+    width: 250px;
+    background-color: ${({ theme }) => theme.bgColor};
+    border: solid 2px #C0C0C0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 `;
 
 const Button = styled.button`
@@ -46,24 +46,24 @@ const Container = ({ colors, onRemoveColor }) => {
 
   const handleRemoveClick = (e) => {
     onRemoveColor(e.target.name);
-  }
-  return (
-    <div>
-      <Ul>{colors.map((color, index) => {
-        const theme = {
-          color: findContrastColor(color),
-          bgColor: color
-        };
+  };
 
-        return (
-          <ThemeProvider theme={theme}>
-            <Li key={index}>
-              <P>{color}</P>
-              <Button onClick={handleRemoveClick} name={color}>Delete The Color</Button>
-            </Li>
-          </ThemeProvider>)
-      })}</Ul>
-    </div >
+  return (
+    <Ul>{colors.map((colorAndType, index) => {
+      let color = colorAndType.color;
+      const theme = {
+        color: blackOrWhite(colorAndType),
+        bgColor: color
+      };
+
+      return (
+        <ThemeProvider theme={theme}>
+          <Li key={index}>
+            <P>{color}</P>
+            <Button onClick={handleRemoveClick} name={color}>Delete The Color</Button>
+          </Li>
+        </ThemeProvider>)
+    })}</Ul>
   );
 }
 

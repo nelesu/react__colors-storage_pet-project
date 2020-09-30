@@ -25,7 +25,8 @@ const Input = styled.input`
 
 
 const toCorrectAlpha = (value) => {
-  let deletedZero = value.replace(/0{2,}$/, '').replace(/(?<=0)\d{1,}/, '').replace(/^\d{2}/, '').replace(/\./, ''); // if two zeros in a row delete
+  let deletedZero = value.replace(/0{2,}$/, '').replace(/(?<=0)\d{1,}/, '').replace(/^\d{2}/, '');
+  
   if (deletedZero <= 1 && deletedZero >= 0) {
     if (deletedZero.length > 8) {
       return deletedZero.slice(0, 8);
@@ -34,7 +35,7 @@ const toCorrectAlpha = (value) => {
     };
   } else {
     console.log("Alpha is incorrect");
-    return "";
+    return 0;
   }
 };
 
@@ -50,7 +51,6 @@ const InputRGBAColor = ({ colorEntry, updateEntry, handlePressEnter }) => {
     if (name === "red") {
       let currentRGBColor = colorEntry;
       currentRGBColor[0] = toCorrectPartOfColor(value);
-      toCorrectPartOfColor(value);
       updateEntry({ type: "rgba", color: currentRGBColor });
     }
     if (name === "green") {
@@ -75,7 +75,7 @@ const InputRGBAColor = ({ colorEntry, updateEntry, handlePressEnter }) => {
       <Input type="number" placeholder="red" name='red' value={colorEntry[0]} />
       <Input type="number" placeholder="green" name='green' value={colorEntry[1]} />
       <Input type="number" placeholder="blue" name='blue' value={colorEntry[2]} />
-      <Input type="number" placeholder="alpha" name='alpha' value={colorEntry[3]} />
+      <Input type="text" placeholder="alpha" name='alpha' value={colorEntry[3]} />
     </Form>
   );
 }

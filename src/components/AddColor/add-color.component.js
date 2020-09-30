@@ -50,17 +50,36 @@ const AddColor = ({ onAddColor }) => {
 
   const addingColor = () => {
     // check array of color's name is correct
-    if (colorInputType === 'rgb' && isCorrectColorName({ color: colorEntry.rgb, type: colorInputType })) {
-      console.log(colorEntry.rgb, 'adding rgb color');
-      onAddColor(`rgb(${colorEntry.rgb[0]}, ${colorEntry.rgb[1]}, ${colorEntry.rgb[2]})`);
+    if (colorInputType === 'rgb') {
+      let colorArray = colorEntry.rgb;
+      console.log(colorArray, 'adding rgb color');
+
+      if (isCorrectColorName({ color: colorArray, type: colorInputType })) {
+        onAddColor(
+          colorInputType, `rgb(${colorArray[0]}, ${colorArray[1]}, ${colorArray[2]})`
+        );
+      } else {
+        // pop-up window with caution
+      }
       // adding color to the board from the current rgb
-    } else if (colorInputType === 'rgba' && isCorrectColorName({ color: colorEntry.rgba, type: colorInputType })) {
-      console.log(colorEntry.rgb, 'adding rgba color');
-      onAddColor(`rgba(${colorEntry.rgba[0]}, ${colorEntry.rgba[1]}, ${colorEntry.rgba[2]}, ${colorEntry.rgba[3]})`);
+
+    } else if (colorInputType === 'rgba') {
+      let colorArray = colorEntry.rgba;
+
+      console.log(colorArray, 'adding rgba color');
+
+      if (isCorrectColorName({ color: colorArray, type: colorInputType })) {
+        onAddColor(
+          colorInputType, `rgba(${colorArray[0]}, ${colorArray[1]}, ${colorArray[2]}, ${colorArray[3]})`
+        );
+      } else {
+        // pop-up window with caution
+      }
+
       // adding color to the board from the current rgba
     } else if (colorInputType === 'hex' && isCorrectColorName({ color: colorEntry.hex, type: colorInputType })) {
       console.log(colorEntry.hex, 'adding hex color');
-      onAddColor('#' + colorEntry.hex);
+      onAddColor(colorInputType, '#' + colorEntry.hex);
     } else {
       console.log("Not a correct color name");
     }
