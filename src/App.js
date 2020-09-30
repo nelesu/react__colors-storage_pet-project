@@ -12,13 +12,12 @@ import AddColor from './components/AddColor/add-color.component';
 import isCorrectColorName from './utils/isCorrectColorName';
 
 function App() {
-  const [colorsAndTypes, setColorsAndTypes] = useState([{ type: 'hex', color: "#00010a" }, { type: 'hex', color: "#0d1016" }, { type: 'hex', color: "#15547e" }]);
+  const [colorsAndTypes, setColorsAndTypes] = useState([{ type: 'hex', color: "#00010a" }, { type: 'hex', color: "#0d1016" }, { type: 'hex', color: "#15547e" }, { type: 'hex', color: "#00010a" }, { type: 'hex', color: "#0d1016" }, { type: 'hex', color: "#00010a" }, { type: 'hex', color: "#0d1016" }, { type: 'hex', color: "#00010a" }, { type: 'hex', color: "#0d1016" }, { type: 'hex', color: "#00010a" }, { type: 'hex', color: "#0d1016" },]);
   const handleAddColor = (type, color) => {
     // if (isCorrectColorName(color)) {
     if (type && color) {
       setColorsAndTypes([...colorsAndTypes, { type: type, color: color }]);
     };
-
     // } else {
     // console.log(`Color "${color}" is incorrect`);
     // }

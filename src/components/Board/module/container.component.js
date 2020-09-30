@@ -4,7 +4,8 @@ import blackOrWhite from '../../../utils/blackOrWhite';
 
 const Ul = styled.ul`
   display: flex;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
+  padding: 0;
   &:nth-child(1) {
     margin-left: -40px;
   }
