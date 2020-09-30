@@ -42,14 +42,14 @@ const P = styled.p`
 `;
 
 
-const Container = ({ colors, onRemoveColor }) => {
+const Container = ({ colorsAndTypes, onRemoveColor }) => {
 
   const handleRemoveClick = (e) => {
     onRemoveColor(e.target.name);
   };
 
   return (
-    <Ul>{colors.map((colorAndType, index) => {
+    <Ul>{colorsAndTypes.map((colorAndType, index) => {
       let color = colorAndType.color;
       const theme = {
         color: blackOrWhite(colorAndType),

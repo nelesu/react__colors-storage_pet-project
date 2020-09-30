@@ -47,8 +47,6 @@ export default ({ type, color }) => {
   g = color.g;
   b = color.b;
 
-  console.log(r, g, b, a, type);
-
   // HSP (Highly Sensitive Poo) equation from http://alienryderflex.com/hsp.html
 
   // If rgba correction for a
@@ -71,7 +69,7 @@ export default ({ type, color }) => {
       0.114 * (b * b)
     );
   }
-  console.log(hsp, 'hsp');
+
   // Using the HSP value, determine whether the color is light or dark
   // ххх crutch ххх
   if (hsp > 127.5) {

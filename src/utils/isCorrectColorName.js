@@ -1,7 +1,7 @@
 export default ({ color, type }) => {
 
   if (type === "hex") {
-    const regexCorrectColorName = /^([A-Fa-f0-9]){6}|([A-Fa-f0-9]){3}$/i;
+    const regexCorrectColorName = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i;
     return regexCorrectColorName.test(color);
   } else if (type === 'rgba') {
     if (color.every(item => !!item === true || !(/\s{1,}/.test(item) === false))) {

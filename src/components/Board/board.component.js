@@ -1,11 +1,11 @@
 import React from 'react';
 import Container from "./module/container.component";
 
-const Board = ({ userId, colors, onRemoveColor }) => {
+const Board = ({ userId, colorsAndTypes, onRemoveColor }) => {
   return (
     <div>
       <h2>Saved Colors</h2>
-      <Container userId={userId} colors={colors} onRemoveColor={onRemoveColor} />
+      <Container userId={userId} colorsAndTypes={colorsAndTypes} onRemoveColor={onRemoveColor} />
     </div>
   );
 }

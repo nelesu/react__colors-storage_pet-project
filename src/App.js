@@ -12,11 +12,11 @@ import AddColor from './components/AddColor/add-color.component';
 import isCorrectColorName from './utils/isCorrectColorName';
 
 function App() {
-  const [colors, setColors] = useState([{ type: 'hex', color: "#00010a" }, { type: 'hex', color: "#0d1016" }, { type: 'hex', color: "#15547e" }]);
+  const [colorsAndTypes, setColorsAndTypes] = useState([{ type: 'hex', color: "#00010a" }, { type: 'hex', color: "#0d1016" }, { type: 'hex', color: "#15547e" }]);
   const handleAddColor = (type, color) => {
     // if (isCorrectColorName(color)) {
     if (type && color) {
-      setColors([...colors, { type: type, color: color }]);
+      setColorsAndTypes([...colorsAndTypes, { type: type, color: color }]);
     };
 
     // } else {
@@ -25,11 +25,16 @@ function App() {
   };
 
   const handleRemoveColor = color => {
-    let colorsCopy = [...colors];
-    let index = colorsCopy.indexOf(color);
+    let onlyColors = colorsAndTypes.map(colorAndType => colorAndType.color);
+    let setColorsAndTypesCopy = colorsAndTypes;
+    let index = onlyColors.indexOf(color);
     if (index !== -1) {
-      colorsCopy.splice(index, 1);
-      setColors(colorsCopy);
+      // setColorsAndTypesCopy.splice(index, 1);
+      // debugger;
+      setColorsAndTypes(prev => {
+        prev.splice(index, 1);
+        return [...prev];
+      });
     }
   }
 
@@ -39,7 +44,7 @@ function App() {
         <Route path="/add/:id" render={(props) => (
           <AddColor {...props} onAddColor={handleAddColor} />
         )} />
-        <Board userId="000000" colors={colors} onRemoveColor={handleRemoveColor} />
+        <Board userId="000000" colorsAndTypes={colorsAndTypes} onRemoveColor={handleRemoveColor} />
       </div>
     </Router>
   );
