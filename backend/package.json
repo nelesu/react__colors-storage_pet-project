@@ -4,12 +4,14 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "forever": "forever -w --spinSleepTime 1000 start server.js "
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.17.1",
     "sqlite3": "^5.0.0"
   }
 }

@@ -1,39 +1,57 @@
 let sqlite3 = require('sqlite3').verbose();
-let db = new sqlite3.Database(':memory:');
+var fs = require('fs');
 
-db.serialize(() => {
-  db.run("CREATE TABLE colors (type TEXT, color TEXT)");
+let dbFile = require('./constants.js').databaseName;
+let tableName = require('./constants.js').tableName;
 
-  let stmt = db.prepare("INSERT INTO colors VALUES (?, ?)");
+let db = new sqlite3.Database(dbFile);
+var dbExists = fs.existsSync(dbFile);
 
-  for (let i = 0; i < 10; i++) {
-    let t = 'hex';
-    let c = "#566561";
-    stmt.run(t, c);
-  }
-  stmt.finalize();
-
-});
+if (!dbExists) {
+  // fs.openSync(dbFile, 'w');
 
 
+  db.serialize(() => {
 
-const getAllColors = async () => {
+    db.run("CREATE TABLE colors (type TEXT, color TEXT)");
 
-  let promise = new Promise((res, rej) => {
-    let result = [];
-    db.each("SELECT color, type FROM colors", function (err, row) {
-      console.log(row.color, row.type);
-      result.push({ type: row.type, color: row.color });
-    });
-    res(result);
+    let stmt = db.prepare("INSERT INTO colors VALUES (?, ?)");
+
+    for (let i = 0; i < 10; i++) {
+      let t = 'hex';
+      let c = "#566561";
+      stmt.run(t, c);
+    }
+    stmt.finalize();
+
+  });
+}
+
+
+
+
+
+// db.close();
+
+function get(tableName, params = []) {
+  return new Promise((resolve, reject) => {
+    db.all(`SELECT color as key, * FROM ${tableName}`, params, (err, rows) => {
+      if (err) {
+        console.log(`Error running sql: SELECT color as key, * FROM ${tableName}`)
+        console.log(err)
+        reject(err)
+      } else {
+        resolve(rows)
+      }
+    })
   })
-
-  let b = await promise;
-  console.log(b, 'b');
-  return b;
-};
-
-console.log(getAllColors());
+}
 
 
-db.close();
+
+get(tableName).then(data => {
+  console.log(data, 'fnsd 13.44');
+})
+
+
+exports.getAllColors = get;
