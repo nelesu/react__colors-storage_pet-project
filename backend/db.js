@@ -35,9 +35,9 @@ if (!dbExists) {
 
 function get(tableName, params = []) {
   return new Promise((resolve, reject) => {
-    db.all(`SELECT color as key, * FROM ${tableName}`, params, (err, rows) => {
+    db.all(`SELECT color, * FROM ${tableName}`, params, (err, rows) => {
       if (err) {
-        console.log(`Error running sql: SELECT color as key, * FROM ${tableName}`)
+        console.log(`Error running sql: SELECT color, * FROM ${tableName}`)
         console.log(err)
         reject(err)
       } else {
@@ -49,9 +49,9 @@ function get(tableName, params = []) {
 
 
 
-get(tableName).then(data => {
-  console.log(data, 'fnsd 13.44');
-})
+// get(tableName).then(data => {
+//   // console.log(data, 'fnsd 13.44');
+// })
 
 
 exports.getAllColors = get;

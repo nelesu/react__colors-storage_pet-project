@@ -11,7 +11,10 @@ import AddColor from './components/AddColor/add-color.component';
 // utils
 import isCorrectColorName from './utils/isCorrectColorName';
 
-function App() {
+// api
+import { fetchData } from './API';
+
+class App {
   const [colorsAndTypes, setColorsAndTypes] = useState([{ type: 'hex', color: "#00010a" }, { type: 'hex', color: "#0d1016" }, { type: 'hex', color: "#15547e" }, { type: 'hex', color: "#00010a" }, { type: 'hex', color: "#0d1016" }, { type: 'hex', color: "#00010a" }, { type: 'hex', color: "#0d1016" }, { type: 'hex', color: "#00010a" }, { type: 'hex', color: "#0d1016" }, { type: 'hex', color: "#00010a" }, { type: 'hex', color: "#0d1016" },]);
   const handleAddColor = (type, color) => {
     // if (isCorrectColorName(color)) {
