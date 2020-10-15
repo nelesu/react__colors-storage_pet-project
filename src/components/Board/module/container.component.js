@@ -48,23 +48,25 @@ const Container = ({ colorsAndTypes, onRemoveColor }) => {
   const handleRemoveClick = (e) => {
     onRemoveColor(e.target.name);
   };
+  return (<Ul>
+    {
+      colorsAndTypes.map((colorAndType, index) => {
+        let color = colorAndType.color;
+        const theme = {
+          color: blackOrWhite(colorAndType),
+          bgColor: color
+        };
 
-  return (
-    <Ul>{colorsAndTypes.map((colorAndType, index) => {
-      let color = colorAndType.color;
-      const theme = {
-        color: blackOrWhite(colorAndType),
-        bgColor: color
-      };
-
-      return (
-        <ThemeProvider theme={theme}>
-          <Li key={index}>
-            <P>{color}</P>
-            <Button onClick={handleRemoveClick} name={color}>Delete The Color</Button>
-          </Li>
-        </ThemeProvider>)
-    })}</Ul>
+        return (
+          <ThemeProvider theme={theme}>
+            <Li key={index}>
+              <P>{color}</P>
+              <Button onClick={handleRemoveClick} name={color}>Delete The Color</Button>
+            </Li>
+          </ThemeProvider>)
+      })
+    }
+  </Ul >
   );
 }
 

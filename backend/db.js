@@ -2,13 +2,12 @@ let sqlite3 = require('sqlite3').verbose();
 var fs = require('fs');
 
 let dbFile = require('./constants.js').databaseName;
-let tableName = require('./constants.js').tableName;
 
 let db = new sqlite3.Database(dbFile);
 var dbExists = fs.existsSync(dbFile);
 
 if (!dbExists) {
-  // fs.openSync(dbFile, 'w');
+  // fs.openSync(dbFile, 'w'); ЧТО ЭТО
 
 
   db.serialize(() => {
@@ -28,12 +27,11 @@ if (!dbExists) {
 }
 
 
+db.close();
 
+function getAllColors(tableName, params = []) {
+  let db = new sqlite3.Database(dbFile);
 
-
-// db.close();
-
-function get(tableName, params = []) {
   return new Promise((resolve, reject) => {
     db.all(`SELECT color, * FROM ${tableName}`, params, (err, rows) => {
       if (err) {
@@ -44,14 +42,25 @@ function get(tableName, params = []) {
         resolve(rows)
       }
     })
+    db.close();
   })
+
+}
+function addColor(tableName, color) {
+  let db = new sqlite3.Database(dbFile);
+
+  let stmt = db.prepare(`INSERT INTO ${tableName} VALUES (?, ?)`);
+  console.log(color, 5456);
+  let t = color.type;
+  let c = color.color;
+  stmt.run(t, c);
+  stmt.finalize();
+
+  db.close();
 }
 
 
 
-// get(tableName).then(data => {
-//   // console.log(data, 'fnsd 13.44');
-// })
 
-
-exports.getAllColors = get;
+exports.getAllColors = getAllColors;
+exports.addColor = addColor;

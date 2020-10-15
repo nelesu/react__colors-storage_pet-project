@@ -12,43 +12,65 @@ import AddColor from './components/AddColor/add-color.component';
 import isCorrectColorName from './utils/isCorrectColorName';
 
 // api
-import { fetchData } from './API';
+import { fetchData, sendData } from './API';
 
-class App {
-  const [colorsAndTypes, setColorsAndTypes] = useState([{ type: 'hex', color: "#00010a" }, { type: 'hex', color: "#0d1016" }, { type: 'hex', color: "#15547e" }, { type: 'hex', color: "#00010a" }, { type: 'hex', color: "#0d1016" }, { type: 'hex', color: "#00010a" }, { type: 'hex', color: "#0d1016" }, { type: 'hex', color: "#00010a" }, { type: 'hex', color: "#0d1016" }, { type: 'hex', color: "#00010a" }, { type: 'hex', color: "#0d1016" },]);
-  const handleAddColor = (type, color) => {
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      colorsAndTypes: [],
+    };
+
+    this.handleAddColor = this.handleAddColor.bind(this);
+    this.handleRemoveColor = this.handleRemoveColor.bind(this);
+  }
+
+
+  async componentDidMount() {
+    const response = await fetchData();
+    this.setState({ colorsAndTypes: response });
+  };
+
+  handleAddColor = (type, color) => {
     // if (isCorrectColorName(color)) {
+    let colorBody = { type: type, color: color };
+
+    sendData(colorBody);
+    
     if (type && color) {
-      setColorsAndTypes([...colorsAndTypes, { type: type, color: color }]);
+      this.setState({ colorsAndTypes: [...this.state.colorsAndTypes, colorBody] });
     };
     // } else {
     // console.log(`Color "${color}" is incorrect`);
     // }
   };
 
-  const handleRemoveColor = color => {
-    let onlyColors = colorsAndTypes.map(colorAndType => colorAndType.color);
-    let setColorsAndTypesCopy = colorsAndTypes;
+  handleRemoveColor = color => {
+    let onlyColors = this.state.colorsAndTypes.map(colorAndType => colorAndType.color);
+    // let setColorsAndTypesCopy = this.state.colorsAndTypes;
     let index = onlyColors.indexOf(color);
     if (index !== -1) {
       // setColorsAndTypesCopy.splice(index, 1);
-      // debugger;
-      setColorsAndTypes(prev => {
-        prev.splice(index, 1);
-        return [...prev];
-      });
+      this.setState((prev => {
+        console.log(prev);
+        prev.colorsAndTypes.splice(index, 1);
+        return { colorsAndTypes: [...prev.colorsAndTypes] };
+      }));
     }
-  }
+  };
 
-  return (
-    <Router>
-      <div className="container">
-        <Route path="/add/:id" render={(props) => (
-          <AddColor {...props} onAddColor={handleAddColor} />
-        )} />
-        <Board userId="000000" colorsAndTypes={colorsAndTypes} onRemoveColor={handleRemoveColor} />
-      </div>
-    </Router>
-  );
+  render() {
+    return (
+      <Router>
+        <div className="container">
+          <Route path="/add/:id" render={(props) => (
+            <AddColor {...props} onAddColor={this.handleAddColor} />
+          )} />
+          <Board userId="000000" colorsAndTypes={this.state.colorsAndTypes} onRemoveColor={this.handleRemoveColor} />
+        </div>
+      </Router >
+    );
+  }
 }
+
 export default App;
