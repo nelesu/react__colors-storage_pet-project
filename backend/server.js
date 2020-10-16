@@ -37,7 +37,7 @@ app.post('/addcolor', (req, res) => {
 app.post('/deletecolor', (req, res) => {
   let colorBody = req.body;
   console.log(colorBody, '/deletecolor');
-  db.deleteColor(tableName, colorBody);
+  db.deleteColorBody(tableName, colorBody);
 })
 
 app.listen(port, () => {

@@ -8,20 +8,26 @@ let db = new sqlite3.Database(dbFile);
 var dbExists = fs.existsSync(dbFile);
 
 
+// utils
+let uuid = require('./utils/uuid').uuid;
+let randomHexColor = require('./utils/randomHexColor').randomHexColor;
+
 fs.openSync(dbFile, 'w'); // ЧТО ЭТО
 
 
 db.serialize(() => {
 
-  db.run(`CREATE TABLE ${tableName} (type TEXT, color TEXT)`);
+  db.run(`CREATE TABLE ${tableName} (type TEXT, color TEXT, id INT)`);
 
-  let stmt = db.prepare(`INSERT INTO ${tableName} VALUES (?, ?)`);
+  let stmt = db.prepare(`INSERT INTO ${tableName} VALUES (?, ?, ?)`);
 
   for (let i = 0; i < 10; i++) {
     let t = 'hex';
 
-    let c = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-    stmt.run(t, c);
+    let c = randomHexColor();
+
+    let i = uuid();
+    stmt.run(t, c, i);
   }
   stmt.finalize();
 
@@ -48,23 +54,24 @@ function getAllColors(tableName, params = []) {
   });
 
 }
-function addColor(tableName, color) {
+function addColor(tableName, colorBody) {
   let db = new sqlite3.Database(dbFile);
 
-  let stmt = db.prepare(`INSERT INTO ${tableName} VALUES (?, ?)`);
-  let t = color.type;
-  let c = color.color;
-  stmt.run(t, c);
+  let stmt = db.prepare(`INSERT INTO ${tableName} VALUES (?, ?, ?)`);
+  let t = colorBody.type;
+  let c = colorBody.color;
+  let i = colorBody.id;
+  stmt.run(t, c, i);
   stmt.finalize();
 
   db.close();
 };
 
-function deleteColor(tableName, color) {
+function deleteColorBody(tableName, color) {
   let db = new sqlite3.Database(dbFile);
-  let c = color.color;
+  let i = color.id;
 
-  db.run(`DELETE FROM ${tableName} WHERE color = ?`, [c]);
+  db.run(`DELETE FROM ${tableName} WHERE id = ?`, [i]);
 
   db.close();
 };
@@ -74,4 +81,4 @@ function deleteColor(tableName, color) {
 
 exports.getAllColors = getAllColors;
 exports.addColor = addColor;
-exports.deleteColor = deleteColor;
+exports.deleteColorBody = deleteColorBody;

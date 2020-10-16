@@ -3,7 +3,7 @@ export const fetchData = async () => {
   const endpoint = 'http://localhost:5555/data';
   const data = await (await fetch(endpoint)).json();
   return data;
-}
+};
 
 export const sendData = async (colorBody) => {
   const endpont = 'http://localhost:5555/addcolor';
@@ -22,7 +22,8 @@ export const sendData = async (colorBody) => {
   });
   return response.json(); // parses JSON response into native JavaScript objects
 };
-export const deleteData = async (colorBody) => {
+
+export const deleteColorBody = async (colorBody) => {
   const endpont = 'http://localhost:5555/deletecolor';
   const response = await fetch(endpont, {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -38,4 +39,4 @@ export const deleteData = async (colorBody) => {
     body: JSON.stringify(colorBody) // body data type must match "Content-Type" header
   });
   return response.json(); // parses JSON response into native JavaScript objects
-}
+};

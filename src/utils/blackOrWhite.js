@@ -31,6 +31,9 @@ const parseRgb = (rgb) => {
 };
 
 export default ({ type, color }) => {
+  console.log(color, 'bow');
+
+
   let r, g, b, hsp, a;
   if (type === 'hex') {
     color = hexToRgb(color);
@@ -42,10 +45,14 @@ export default ({ type, color }) => {
     a = color.a;
   }
 
-  r = color.r;
-  g = color.g;
-  b = color.b;
-
+  if (color !== null) {
+    r = color.r;
+    g = color.g;
+    b = color.b;
+  } else {
+    console.log(color + 'is undefined');
+    return 'red';
+  }
   // HSP (Highly Sensitive Poo) equation from http://alienryderflex.com/hsp.html
 
   // If rgba correction for a
@@ -77,4 +84,6 @@ export default ({ type, color }) => {
   else {
     return 'white';
   }
+
+
 }
