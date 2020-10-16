@@ -32,7 +32,6 @@ const parseRgb = (rgb) => {
 
 export default ({ type, color }) => {
   let r, g, b, hsp, a;
-  console.log(type, color);
   if (type === 'hex') {
     color = hexToRgb(color);
   } else if (type === 'rgb') {

@@ -43,17 +43,18 @@ const P = styled.p`
 `;
 
 
-const Container = ({ colorsAndTypes, onRemoveColor }) => {
+const Container = ({ colorsBody, onRemoveColor }) => {
 
   const handleRemoveClick = (e) => {
     onRemoveColor(e.target.name);
   };
   return (<Ul>
     {
-      colorsAndTypes.map((colorAndType, index) => {
-        let color = colorAndType.color;
+      colorsBody.map((colorBody, index) => {
+        let color = colorBody.color;
+        let id = colorBody
         const theme = {
-          color: blackOrWhite(colorAndType),
+          color: blackOrWhite(colorBody),
           bgColor: color
         };
 
@@ -61,7 +62,7 @@ const Container = ({ colorsAndTypes, onRemoveColor }) => {
           <ThemeProvider theme={theme}>
             <Li key={index}>
               <P>{color}</P>
-              <Button onClick={handleRemoveClick} name={color}>Delete The Color</Button>
+              <Button onClick={handleRemoveClick} name={color} id={}>Delete The Color</Button>
             </Li>
           </ThemeProvider>)
       })

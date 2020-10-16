@@ -12,7 +12,7 @@ import AddColor from './components/AddColor/add-color.component';
 import isCorrectColorName from './utils/isCorrectColorName';
 
 // api
-import { fetchData, sendData } from './API';
+import { fetchData, sendData, deleteData } from './API';
 
 class App extends React.Component {
   constructor(props) {
@@ -36,7 +36,7 @@ class App extends React.Component {
     let colorBody = { type: type, color: color };
 
     sendData(colorBody);
-    
+
     if (type && color) {
       this.setState({ colorsAndTypes: [...this.state.colorsAndTypes, colorBody] });
     };
@@ -46,14 +46,16 @@ class App extends React.Component {
   };
 
   handleRemoveColor = color => {
-    let onlyColors = this.state.colorsAndTypes.map(colorAndType => colorAndType.color);
+    let onlyColors = this.state.colorsAndTypes.map(colorAndType => colorAndType.color); // filter only colors
     // let setColorsAndTypesCopy = this.state.colorsAndTypes;
     let index = onlyColors.indexOf(color);
+
     if (index !== -1) {
       // setColorsAndTypesCopy.splice(index, 1);
       this.setState((prev => {
-        console.log(prev);
-        prev.colorsAndTypes.splice(index, 1);
+        let deletedColorAndType = prev.colorsAndTypes.splice(index, 1)[0];
+
+        deleteData(deletedColorAndType);
         return { colorsAndTypes: [...prev.colorsAndTypes] };
       }));
     }

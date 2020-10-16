@@ -16,11 +16,6 @@ app.use('/', (req, res, next) => {
   next(); // без этого метода не обрабатывает краны(запросы?(пути??)) ниже
 });
 
-// let data = db.getAllColors(database, 'colors').then(data => {
-//   console.log(data);
-//   return data;
-// });
-// console.log(data);
 
 app.get('/d', (req, res) => {
   res.send('d');
@@ -34,9 +29,15 @@ app.get('/data', (req, res) => {
 });
 
 app.post('/addcolor', (req, res) => {
-  let color = req.body;
-  console.log(color, '/addcolor');
-  db.addColor(tableName, color);
+  let colorBody = req.body;
+  console.log(colorBody, '/addcolor');
+  db.addColor(tableName, colorBody);
+});
+
+app.post('/deletecolor', (req, res) => {
+  let colorBody = req.body;
+  console.log(colorBody, '/deletecolor');
+  db.deleteColor(tableName, colorBody);
 })
 
 app.listen(port, () => {
